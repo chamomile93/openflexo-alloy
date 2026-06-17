@@ -36,7 +36,7 @@
  * 
  */
 
-package org.openflexo.ta.xx;
+package org.openflexo.ta.alloy;
 
 import java.util.logging.Logger;
 
@@ -44,9 +44,9 @@ import org.openflexo.foundation.fml.annotations.DeclareModelSlots;
 import org.openflexo.foundation.fml.annotations.DeclareResourceFactories;
 import org.openflexo.foundation.resource.FlexoResourceCenter;
 import org.openflexo.foundation.technologyadapter.TechnologyAdapter;
-import org.openflexo.ta.xx.fml.binding.XXBindingFactory;
-import org.openflexo.ta.xx.rm.XXTextResourceFactory;
-import org.openflexo.ta.xx.rm.XXTextResourceRepository;
+import org.openflexo.ta.Alloy.fml.binding.AlloyBindingFactory;
+import org.openflexo.ta.Alloy.rm.AlloyTextResourceFactory;
+import org.openflexo.ta.Alloy.rm.AlloyTextResourceRepository;
 
 /**
  * This class defines and implements an archetype of a technology adapter<br>
@@ -58,31 +58,32 @@ import org.openflexo.ta.xx.rm.XXTextResourceRepository;
  * @author sylvain
  * 
  */
-@DeclareModelSlots({ XXModelSlot.class })
+@DeclareModelSlots({ AlloyModelSlot.class })
 // You might declare your own types here
 // @DeclareTechnologySpecificTypes({ YourCustomType.class })
-@DeclareResourceFactories({ XXTextResourceFactory.class })
-public class XXTechnologyAdapter extends TechnologyAdapter<XXTechnologyAdapter> {
+@DeclareTechnologySpecificTypes({ AlloyObjectSignatureType.class })
+@DeclareResourceFactories({ AlloyTextResourceFactory.class })
+public class AlloyTechnologyAdapter extends TechnologyAdapter<AlloyTechnologyAdapter> {
 
 	@SuppressWarnings("unused")
-	private static final Logger logger = Logger.getLogger(XXTechnologyAdapter.class.getPackage().getName());
+	private static final Logger logger = Logger.getLogger(AlloyTechnologyAdapter.class.getPackage().getName());
 
-	private static final XXBindingFactory BINDING_FACTORY = new XXBindingFactory();
+	private static final AlloyBindingFactory BINDING_FACTORY = new AlloyBindingFactory();
 
 	@Override
 	public String getName() {
-		return "XX technology adapter";
+		return "Alloy technology adapter";
 	}
 
 	@Override
 	protected String getLocalizationDirectory() {
-		return "FlexoLocalization/XXTechnologyAdapter";
+		return "FlexoLocalization/AlloyTechnologyAdapter";
 	}
 
 	@Override
 	public void ensureAllRepositoriesAreCreated(FlexoResourceCenter<?> rc) {
 		super.ensureAllRepositoriesAreCreated(rc);
-		getXXResourceRepository(rc);
+		getAlloyResourceRepository(rc);
 
 	}
 
@@ -93,25 +94,25 @@ public class XXTechnologyAdapter extends TechnologyAdapter<XXTechnologyAdapter> 
 	}
 
 	@Override
-	public XXBindingFactory getTechnologyAdapterBindingFactory() {
+	public AlloyBindingFactory getTechnologyAdapterBindingFactory() {
 		return BINDING_FACTORY;
 	}
 
 	@Override
 	public String getIdentifier() {
-		return "XX";
+		return "Alloy";
 	}
 
-	public XXTextResourceFactory getXXResourceFactory() {
-		return getResourceFactory(XXTextResourceFactory.class);
+	public AlloyTextResourceFactory getAlloyResourceFactory() {
+		return getResourceFactory(AlloyTextResourceFactory.class);
 	}
 
 	@SuppressWarnings("unchecked")
-	public <I> XXTextResourceRepository<I> getXXResourceRepository(FlexoResourceCenter<I> resourceCenter) {
-		XXTextResourceRepository<I> returned = resourceCenter.retrieveRepository(XXTextResourceRepository.class, this);
+	public <I> AlloyTextResourceRepository<I> getAlloyResourceRepository(FlexoResourceCenter<I> resourceCenter) {
+		AlloyTextResourceRepository<I> returned = resourceCenter.retrieveRepository(AlloyTextResourceRepository.class, this);
 		if (returned == null) {
-			returned = XXTextResourceRepository.instanciateNewRepository(this, resourceCenter);
-			resourceCenter.registerRepository(returned, XXTextResourceRepository.class, this);
+			returned = AlloyTextResourceRepository.instanciateNewRepository(this, resourceCenter);
+			resourceCenter.registerRepository(returned, AlloyTextResourceRepository.class, this);
 		}
 		return returned;
 	}

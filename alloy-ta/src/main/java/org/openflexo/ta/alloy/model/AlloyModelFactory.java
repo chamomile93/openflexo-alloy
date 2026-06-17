@@ -56,16 +56,16 @@ import org.openflexo.ta.xx.rm.XXTextResource;
  * @author sylvain
  * 
  */
-public class XXModelFactory extends PamelaModelFactory implements PamelaResourceModelFactory<XXTextResource> {
+public class AlloyModelFactory extends PamelaModelFactory implements PamelaResourceModelFactory<XXTextResource> {
 
 	@SuppressWarnings("unused")
-	private static final Logger logger = Logger.getLogger(XXModelFactory.class.getPackage().getName());
+	private static final Logger logger = Logger.getLogger(AlloyModelFactory.class.getPackage().getName());
 
 	private final XXTextResource resource;
 	private IgnoreLoadingEdits ignoreHandler = null;
 	private FlexoUndoManager undoManager = null;
 
-	public XXModelFactory(XXTextResource resource, EditingContext editingContext) throws ModelDefinitionException {
+	public AlloyModelFactory(XXTextResource resource, EditingContext editingContext) throws ModelDefinitionException {
 		super(PamelaMetaModelLibrary.retrieveMetaModel(XXText.class));
 		this.resource = resource;
 		setEditingContext(editingContext);

@@ -71,15 +71,15 @@ import org.openflexo.ta.xx.rm.XXTextResource;
 @DeclareFetchRequests({ SelectUniqueXXLine.class, SelectXXLine.class })
 @DeclareActorReferences({ XXLineActorReference.class })
 @ModelEntity
-@ImplementationClass(XXModelSlot.XXModelSlotImpl.class)
+@ImplementationClass(AlloyModelSlot.XXModelSlotImpl.class)
 @XMLElement
 @FML("XXModelSlot")
-public interface XXModelSlot extends FreeModelSlot<XXText, XXTextResource> {
+public interface AlloyModelSlot extends FreeModelSlot<XXText, XXTextResource> {
 
-	public static abstract class XXModelSlotImpl extends FreeModelSlotImpl<XXText, XXTextResource> implements XXModelSlot {
+	public static abstract class XXModelSlotImpl extends FreeModelSlotImpl<XXText, XXTextResource> implements AlloyModelSlot {
 
 		@SuppressWarnings("unused")
-		private static final Logger logger = Logger.getLogger(XXModelSlot.class.getPackage().getName());
+		private static final Logger logger = Logger.getLogger(AlloyModelSlot.class.getPackage().getName());
 
 		@Override
 		public Class<XXTechnologyAdapter> getTechnologyAdapterClass() {

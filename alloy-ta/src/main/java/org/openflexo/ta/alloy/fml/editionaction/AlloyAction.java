@@ -53,6 +53,6 @@ import org.openflexo.ta.xx.model.XXText;
  */
 
 @ModelEntity(isAbstract = true)
-public interface XXAction<T extends Object> extends TechnologySpecificActionDefiningReceiver<XXModelSlot, XXText, T> {
+public interface AlloyAction<T extends Object> extends TechnologySpecificActionDefiningReceiver<XXModelSlot, XXText, T> {
 
 }
