@@ -1,0 +1,9 @@
+include 'xx-ta',
+    'xx-ta-ui',
+    'xx-ta-test',
+    'xx-ta-test-rc',
+    'dsl-ta',
+    'dsl-ta-parser',
+    'dsl-ta-ui',
+    'dsl-ta-test',
+    'dsl-ta-test-rc'
