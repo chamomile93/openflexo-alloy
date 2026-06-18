@@ -38,67 +38,12 @@
 
 package org.openflexo.ta.alloy;
 
-import static org.junit.Assert.assertNotNull;
-
-import java.io.FileNotFoundException;
 import java.util.logging.Logger;
 
-import org.openflexo.foundation.FlexoException;
-import org.openflexo.foundation.resource.FlexoResource;
-import org.openflexo.foundation.resource.FlexoResourceCenter;
-import org.openflexo.foundation.resource.ResourceLoadingCancelledException;
 import org.openflexo.foundation.test.OpenflexoProjectAtRunTimeTestCase;
-import org.openflexo.ta.alloy.model.AlloyText;
-
 
 public abstract class AbstractAlloyTest extends OpenflexoProjectAtRunTimeTestCase {
 	protected static final Logger logger = Logger.getLogger(AbstractAlloyTest.class.getPackage().getName());
 
-	protected AlloyModelResource (String documentName, FlexoResourceCenter<?> resourceCenter) {
-
-		String documentURI = resourceCenter.getDefaultBaseURI() + "/" + "Alloy" + "/" + documentName;
-		System.out.println("Searching " + documentURI);
-
-		AlloyTextResource documentResource = (AlloyTextResource) serviceManager.getResourceManager().getResource(documentURI, null, AlloyText.class);
-
-		if (documentResource == null) {
-			logger.warning("Cannot find document resource " + documentURI);
-			for (FlexoResource<?> r : serviceManager.getResourceManager().getRegisteredResources()) {
-				System.out.println("> " + r.getURI());
-			}
-		}
-
-		assertNotNull(documentResource);
-
-		return documentResource;
-	}
-
-	protected AlloyTextResource getAlloyResource(String documentName) {
-
-		FlexoResourceCenter<?> resourceCenter = serviceManager.getResourceCenterService()
-				.getFlexoResourceCenter("http://www.openflexo.org/test/alloy");
-
-		return getAlloyResource(documentName, resourceCenter);
-	}
-
-	protected AlloyText getAlloyText(String documentName) {
-
-		AlloyTextResource documentResource = getAlloyResource(documentName);
-		assertNotNull(documentResource);
-
-		AlloyText document = null;
-		try {
-			document = documentResource.getResourceData();
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (ResourceLoadingCancelledException e) {
-			e.printStackTrace();
-		} catch (FlexoException e) {
-			e.printStackTrace();
-		}
-		assertNotNull(document);
-
-		return document;
-	}
 
 }

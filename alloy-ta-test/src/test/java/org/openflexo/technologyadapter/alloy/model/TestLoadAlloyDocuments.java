@@ -46,7 +46,6 @@ import org.junit.runner.RunWith;
 import org.openflexo.foundation.resource.FlexoResourceCenter;
 import org.openflexo.ta.alloy.AbstractAlloyTest;
 import org.openflexo.ta.alloy.AlloyTechnologyAdapter;
-import org.openflexo.ta.alloy.model.AlloyText;
 import org.openflexo.test.OrderedRunner;
 import org.openflexo.test.TestOrder;
 
@@ -67,40 +66,14 @@ public class TestLoadAlloyDocuments extends AbstractAlloyTest {
 				.getTechnologyAdapter(AlloyTechnologyAdapter.class);
 
 		assertNotNull(technologicalAdapter);
-
 		for (FlexoResourceCenter<?> resourceCenter : serviceManager.getResourceCenterService().getResourceCenters()) {
-			// AlloyResourceRepository<?> workbookRepository = technologicalAdapter.getAlloyResourceRepository(resourceCenter);
-			// assertNotNull(workbookRepository);
-			// Collection<AlloyTextResource> documents = workbookRepository.getAllResources();
-			// for (AlloyTextResource docResource : documents) {
-			// 	try {
-			// 		docResource.loadResourceData();
-			// 	} catch (FileNotFoundException e) {
-			// 		e.printStackTrace();
-			// 	} catch (ResourceLoadingCancelledException e) {
-			// 		e.printStackTrace();
-			// 	} catch (FlexoException e) {
-			// 		e.printStackTrace();
-			// 	}
-			// 	assertNotNull(docResource.getLoadedResourceData());
-				// System.out.println("URI of document: " + docResource.getURI());
-				// System.out.println("ResourceData: " + docResource.getLoadedResourceData());
-			// }
+			fail();
 		}
 	}
 
 	@Test
 	@TestOrder(4)
 	public void testAlloyContents() {
-
-		AlloyText text = getAlloyText("Test1.txt");
-		System.out.println("Test1.txt:\n" + text);
-
-		assertEquals(5, text.getLines().size());
-		assertEquals("This", text.getLines().get(0).getValue());
-		assertEquals("is", text.getLines().get(1).getValue());
-		assertEquals("a", text.getLines().get(2).getValue());
-		assertEquals("test", text.getLines().get(3).getValue());
-		assertEquals("file", text.getLines().get(4).getValue());
+		fail();
 	}
 }
