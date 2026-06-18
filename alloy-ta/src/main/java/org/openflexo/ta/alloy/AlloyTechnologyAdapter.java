@@ -47,8 +47,6 @@ import org.openflexo.foundation.technologyadapter.TechnologyAdapter;
 import org.openflexo.foundation.technologyadapter.TechnologyAdapterInitializationException;
 import org.openflexo.ta.alloy.fml.binding.AlloyBindingFactory;
 import org.openflexo.ta.alloy.rm.AlloyMetaModelResourceFactory;
-import org.openflexo.ta.alloy.rm.AlloyTextResourceFactory;
-import org.openflexo.ta.alloy.rm.AlloyTextResourceRepository;
 
 /**
  * This class defines and implements the Alloy technology adapter
@@ -101,8 +99,7 @@ public class AlloyTechnologyAdapter extends TechnologyAdapter<AlloyTechnologyAda
 	@Override
 	public void ensureAllRepositoriesAreCreated(FlexoResourceCenter<?> rc) {
 		super.ensureAllRepositoriesAreCreated(rc);
-		getAlloyResourceRepository(rc);
-
+//		getAlloyResourceRepository(rc);
 	}
 
 	@Override
@@ -144,18 +141,18 @@ public class AlloyTechnologyAdapter extends TechnologyAdapter<AlloyTechnologyAda
 		return "Alloy";
 	}
 
-	public AlloyTextResourceFactory getAlloyResourceFactory() {
-		return getResourceFactory(AlloyTextResourceFactory.class);
-	}
+//	public AlloyTextResourceFactory getAlloyResourceFactory() {
+//		return getResourceFactory(AlloyTextResourceFactory.class);
+//	}
 
-	@SuppressWarnings("unchecked")
-	public <I> AlloyTextResourceRepository<I> getAlloyResourceRepository(FlexoResourceCenter<I> resourceCenter) {
-		AlloyTextResourceRepository<I> returned = resourceCenter.retrieveRepository(AlloyTextResourceRepository.class, this);
-		if (returned == null) {
-			returned = AlloyTextResourceRepository.instanciateNewRepository(this, resourceCenter);
-			resourceCenter.registerRepository(returned, AlloyTextResourceRepository.class, this);
-		}
-		return returned;
-	}
+//	@SuppressWarnings("unchecked")
+//	public <I> AlloyTextResourceRepository<I> getAlloyResourceRepository(FlexoResourceCenter<I> resourceCenter) {
+//		AlloyTextResourceRepository<I> returned = resourceCenter.retrieveRepository(AlloyTextResourceRepository.class, this);
+//		if (returned == null) {
+//			returned = AlloyTextResourceRepository.instanciateNewRepository(this, resourceCenter);
+//			resourceCenter.registerRepository(returned, AlloyTextResourceRepository.class, this);
+//		}
+//		return returned;
+//	}
 
 }

@@ -1,16 +1,14 @@
 use org.openflexo.technologyadapter.alloy.AlloyModelSlot;
 
 /**
- * 
- * @author sylvain
- * @version 0.1
  */
 @VirtualModel(uri="http://www.openflexo.org/test/alloy/resources/FML/TestAlloyVM.fml")
 public class TestAlloyVM {
 
   @AlloyModelSlot(cardinality=ZeroOne,readOnly=false)  
-  public AlloyText text;
+  public AlloyModel ;
 
+/* TODO
   @FlexoConcept  
   public class Line {  
   
@@ -27,6 +25,7 @@ public class TestAlloyVM {
       
     }    
   
-  }  
+  }
+  */  
 
 }

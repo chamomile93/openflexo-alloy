@@ -1,12 +1,22 @@
 buildscript {
     repositories {
-        maven { url uri('https://maven.openflexo.org/artifactory/openflexo-deps/') }
+       maven { url uri('https://maven.openflexo.org/artifactory/openflexo-deps/') }
     }
     dependencies {
-        classpath group: 'org.openflexo', name: 'buildplugin', version: '0.3'
-        classpath group: 'org.openflexo', name: 'buildconfig', version: '3.0'
-        // TODO add alloy dependency as implementation or api ?
-    }
+		classpath group: 'org.openflexo', name: 'buildplugin', version: '0.3'
+		classpath group: 'org.openflexo', name: 'buildconfig', version: '3.0'
+	}
+}
+
+// TODO fix this with a better way
+configurations {
+    // For compiled/binary dependencies
+    compileLibs
+}
+
+dependencies {
+    // https://mvnrepository.com/artifact/org.alloytools/org.alloytools.alloy.dist
+	compileLibs fileTree(dir: 'lib', include: '*.jar') // "org.alloytools:org.alloytools.alloy.dist:6.2.0"
 }
 
 version = "3.0"

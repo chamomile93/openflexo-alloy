@@ -63,8 +63,6 @@ import org.openflexo.ta.alloy.AlloyTechnologyAdapter;
  * A parameterized suite of unit tests iterating on FML script files.
  * 
  * For each FML-script file, execute it. All asserts are executed and must success
- * 
- * @author sylvain
  *
  */
 @RunWith(Parameterized.class)
@@ -80,9 +78,6 @@ public class AutomatedTests extends FMLScriptParserTestCase {
 	private FMLScript script;
 	private CommandInterpreter commandInterpreter;
 
-	// private static FlexoResourceCenterService rcService;
-	// private static FlexoResourceCenter<?> testResourcesRC;
-
 	public AutomatedTests(Resource fmlResource, String name) throws ParseException, ModelDefinitionException, IOException {
 		System.out.println("********* Launch FML-script " + fmlResource + " name=" + name);
 		this.fmlResource = fmlResource;
@@ -97,18 +92,6 @@ public class AutomatedTests extends FMLScriptParserTestCase {
 		script.execute();
 	}
 
-	/*	@Test
-		public void checkScript() throws ModelDefinitionException, ParseException, IOException {
-			System.out.println("Check script " + fmlResource.getRelativePath());
-			System.out.println("script=" + script);
-			checkFMLScript(fmlResource.getRelativePath(), script);
-		}
-	
-		@Test
-		public void executeScript() throws ModelDefinitionException, ParseException, IOException {
-			System.out.println("Execute script " + fmlResource.getRelativePath());
-		}*/
-
 	public void initServiceManager() throws ParseException, ModelDefinitionException, IOException {
 		instanciateTestServiceManager(AlloyTechnologyAdapter.class);
 
@@ -116,58 +99,5 @@ public class AutomatedTests extends FMLScriptParserTestCase {
 		assertNotNull(editor);
 
 		commandInterpreter = new CommandInterpreter(serviceManager, System.in, System.out, System.err, HOME_DIR);
-
-		/*rcService = commandInterpreter.getServiceManager().getResourceCenterService();
-		FlexoResourceCenter<?> existingResourcesRC = rcService.getFlexoResourceCenter("http://openflexo.org/test/flexo-test-resources");
-		logger.info("Copying all files from " + existingResourcesRC);
-		testResourcesRC = makeNewDirectoryResourceCenterFromExistingResourceCenter(serviceManager, existingResourcesRC);
-		logger.info("Now working with " + testResourcesRC);*/
 	}
-
-	/*@BeforeClass
-	public static void initServiceManager() {
-		instanciateTestServiceManager();
-	}*/
-
-	/*protected FlexoServiceManager serviceManager;
-	
-	protected FlexoServiceManager instanciateTestServiceManager() {
-		serviceManager = new DefaultFlexoServiceManager(null, false, true) {
-	
-			@Override
-			protected LocalizationService createLocalizationService(String relativePath) {
-				LocalizationService returned = super.createLocalizationService(relativePath);
-				returned.setAutomaticSaving(false);
-				return returned;
-			}
-	
-			@Override
-			protected FlexoEditingContext createEditingContext() {
-				// In unit tests, we do NOT want to be warned against unexpected
-				// edits
-				return FlexoEditingContext.createInstance(false);
-			}
-	
-			@Override
-			protected DefaultFlexoEditor createApplicationEditor() {
-				return new DefaultFlexoEditor(null, this);
-			}
-	
-			@Override
-			protected ProjectLoader createProjectLoaderService() {
-				return new ProjectLoader();
-			}
-	
-		};
-	
-		serviceManager.getLocalizationService().setAutomaticSaving(false);
-	
-		// Activate both FML and FML@RT technology adapters
-		TechnologyAdapterService taService = serviceManager.getTechnologyAdapterService();
-		taService.activateTechnologyAdapter(taService.getTechnologyAdapter(FMLTechnologyAdapter.class), true);
-		taService.activateTechnologyAdapter(taService.getTechnologyAdapter(FMLRTTechnologyAdapter.class), true);
-	
-		return serviceManager;
-	}*/
-
 }

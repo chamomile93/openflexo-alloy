@@ -204,9 +204,9 @@ public class AlloyAdapterController extends TechnologyAdapterController<AlloyTec
 
 	@Override
 	public String getWindowTitleforObject(TechnologyObject<AlloyTechnologyAdapter> object, FlexoController controller) {
-		if (object instanceof AlloyText) {
-			return ((AlloyText) object).getResource().getName();
-		}
+//		if (object instanceof AlloyText) {
+//			return ((AlloyText) object).getResource().getName();
+//		}
 		return object.toString();
 	}
 

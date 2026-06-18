@@ -42,23 +42,14 @@ import java.lang.reflect.Type;
 import java.util.logging.Logger;
 
 import org.openflexo.foundation.fml.FlexoRole;
-import org.openflexo.foundation.fml.annotations.DeclareActorReferences;
-import org.openflexo.foundation.fml.annotations.DeclareEditionActions;
-import org.openflexo.foundation.fml.annotations.DeclareFetchRequests;
-import org.openflexo.foundation.fml.annotations.DeclareFlexoRoles;
 import org.openflexo.foundation.fml.annotations.FML;
 import org.openflexo.foundation.technologyadapter.FreeModelSlot;
 import org.openflexo.foundation.technologyadapter.ModelSlot;
 import org.openflexo.pamela.annotations.ImplementationClass;
 import org.openflexo.pamela.annotations.ModelEntity;
 import org.openflexo.pamela.annotations.XMLElement;
-import org.openflexo.ta.alloy.fml.AlloyLineActorReference;
-import org.openflexo.ta.alloy.fml.AlloyLineRole;
-import org.openflexo.ta.alloy.fml.editionaction.AddAlloyLine;
-import org.openflexo.ta.alloy.fml.editionaction.SelectUniqueAlloyLine;
-import org.openflexo.ta.alloy.fml.editionaction.SelectAlloyLine;
-import org.openflexo.ta.alloy.model.AlloyText;
-import org.openflexo.ta.alloy.rm.AlloyTextResource;
+import org.openflexo.ta.alloy.model.AlloyModel;
+import org.openflexo.ta.alloy.rm.AlloyModelResource;
 
 /**
  * Implementation of the {@link ModelSlot} class for the Alloy technology adapter (plain text connector)
@@ -66,17 +57,17 @@ import org.openflexo.ta.alloy.rm.AlloyTextResource;
  * @author sylvain
  * 
  */
-@DeclareFlexoRoles({ AlloyLineRole.class })
-@DeclareEditionActions({ AddAlloyLine.class })
-@DeclareFetchRequests({ SelectUniqueAlloyLine.class, SelectAlloyLine.class })
-@DeclareActorReferences({ AlloyLineActorReference.class })
+// @DeclareFlexoRoles({ AlloyLineRole.class })
+// @DeclareEditionActions({ AddAlloyLine.class })
+// @DeclareFetchRequests({ SelectUniqueAlloyLine.class, SelectAlloyLine.class })
+// @DeclareActorReferences({ AlloyLineActorReference.class })
 @ModelEntity
 @ImplementationClass(AlloyModelSlot.AlloyModelSlotImpl.class)
 @XMLElement
 @FML("AlloyModelSlot")
-public interface AlloyModelSlot extends FreeModelSlot<AlloyText, AlloyTextResource> {
+public interface AlloyModelSlot extends FreeModelSlot<AlloyModel, AlloyModelResource> {
 
-	public static abstract class AlloyModelSlotImpl extends FreeModelSlotImpl<AlloyText, AlloyTextResource> implements AlloyModelSlot {
+	public static abstract class AlloyModelSlotImpl extends FreeModelSlotImpl<AlloyModel, AlloyModelResource> implements AlloyModelSlot {
 
 		@SuppressWarnings("unused")
 		private static final Logger logger = Logger.getLogger(AlloyModelSlot.class.getPackage().getName());
@@ -88,15 +79,15 @@ public interface AlloyModelSlot extends FreeModelSlot<AlloyText, AlloyTextResour
 
 		@Override
 		public <PR extends FlexoRole<?>> String defaultFlexoRoleName(Class<PR> patternRoleClass) {
-			if (AlloyLineRole.class.isAssignableFrom(patternRoleClass)) {
-				return "line";
-			}
+			// if (AlloyLineRole.class.isAssignableFrom(patternRoleClass)) {
+			// 	return "line";
+			// }
 			return null;
 		}
 
 		@Override
 		public Type getType() {
-			return AlloyText.class;
+			return AlloyModel.class;
 		}
 
 		@Override

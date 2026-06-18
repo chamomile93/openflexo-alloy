@@ -26,18 +26,14 @@ import java.util.List;
 import java.util.Properties;
 import java.util.logging.Logger;
 
-import org.openflexo.foundation.resource.ClassLoaderIODelegate;
-import org.openflexo.foundation.resource.FlexoIODelegate;
 import org.openflexo.foundation.resource.FlexoResourceCenter;
 import org.openflexo.foundation.resource.TechnologySpecificFlexoResourceFactory;
-import org.openflexo.foundation.technologyadapter.TechnologyContextManager;
 import org.openflexo.pamela.exceptions.ModelDefinitionException;
 import org.openflexo.ta.alloy.AlloyTechnologyAdapter;
+import org.openflexo.ta.alloy.metamodel.AlloyMetaModel;
 
 /**
  * Implementation of ResourceFactory for {@link AlloyMetaModelResource}
- * 
- * @author sylvain
  *
  */
 public class AlloyMetaModelResourceFactory
@@ -59,7 +55,7 @@ public class AlloyMetaModelResourceFactory
 	public static String PROPERTY_XTEXT_STANDALONE_SETUP = "XTEXT_STANDALONE_SETUP";
 
 	public AlloyMetaModelResourceFactory() throws ModelDefinitionException {
-		super(AlloyMetaModelResource.class, XtextAlloyMetaModelResource.class);
+		super(AlloyMetaModelResource.class);
 	}
 
 	@Override
@@ -124,161 +120,161 @@ public class AlloyMetaModelResourceFactory
 
 	}
 
-	@Override
-	public <I> AlloyMetaModelResource registerResource(AlloyMetaModelResource resource, FlexoResourceCenter<I> resourceCenter) {
-		super.registerResource(resource, resourceCenter);
+	// @Override
+	// public <I> AlloyMetaModelResource registerResource(AlloyMetaModelResource resource, FlexoResourceCenter<I> resourceCenter) {
+	// 	super.registerResource(resource, resourceCenter);
 
-		 System.out.println("j'enregistre " + resource.getURI() + " dans " + resourceCenter);
-		 System.out.println("sm=" + resource.getServiceManager());
-		 System.out.println(resource instanceof ECoreMetaModelResource);
-		TechnologyContextManager<AlloyTechnologyAdapter> technologyContextManager = getTechnologyContextManager(resource.getServiceManager());
+	// 	 System.out.println("j'enregistre " + resource.getURI() + " dans " + resourceCenter);
+	// 	 System.out.println("sm=" + resource.getServiceManager());
+	// 	 System.out.println(resource instanceof ECoreMetaModelResource);
+	// 	TechnologyContextManager<AlloyTechnologyAdapter> technologyContextManager = getTechnologyContextManager(resource.getServiceManager());
 
-		if (resource instanceof JarBasedMetaModelResource) {
+	// 	if (resource instanceof JarBasedMetaModelResource) {
 
-			// Depending on the MM Type, you must do different things
+	// 		// Depending on the MM Type, you must do different things
 
-			JarBasedMetaModelResource jarBasedResource = (JarBasedMetaModelResource) resource;
+	// 		JarBasedMetaModelResource jarBasedResource = (JarBasedMetaModelResource) resource;
 
-			if (jarBasedResource.getMetaModelType() == AlloyMetaModelType.Profile) {
+	// 		if (jarBasedResource.getMetaModelType() == AlloyMetaModelType.Profile) {
 
-				System.out.println("On enregistre le profil " + resource);
+	// 			System.out.println("On enregistre le profil " + resource);
 
-				((AlloyTechnologyContextManager) technologyContextManager).registerProfile(jarBasedResource);
-			}
-			else {
-				((AlloyTechnologyContextManager) technologyContextManager).registerMetaModel(jarBasedResource);
-			}
-		}
+	// 			((AlloyTechnologyContextManager) technologyContextManager).registerProfile(jarBasedResource);
+	// 		}
+	// 		else {
+	// 			((AlloyTechnologyContextManager) technologyContextManager).registerMetaModel(jarBasedResource);
+	// 		}
+	// 	}
 		
-		if (resource instanceof AlloyMetaModelResource) {
-			AlloyMetaModelResource eCoreResource = (AlloyMetaModelResource)resource;
-			((AlloyTechnologyContextManager) technologyContextManager).registerMetaModel(eCoreResource);
-		}
+	// 	if (resource instanceof AlloyMetaModelResource) {
+	// 		AlloyMetaModelResource eCoreResource = (AlloyMetaModelResource)resource;
+	// 		((AlloyTechnologyContextManager) technologyContextManager).registerMetaModel(eCoreResource);
+	// 	}
 		
 		
 
-		AlloyTechnologyAdapter technologyAdapter = getTechnologyAdapter(resource.getServiceManager());
-		technologyAdapter.newMetaModelWasRegistered(resource, resourceCenter);
+	// 	AlloyTechnologyAdapter technologyAdapter = getTechnologyAdapter(resource.getServiceManager());
+	// 	technologyAdapter.newMetaModelWasRegistered(resource, resourceCenter);
 
-		// Register the resource in the AlloyMetaModelRepository of supplied resource center
-		if (resourceCenter != null) {
-			registerResourceInResourceRepository(resource,
-					technologyContextManager.getTechnologyAdapter().getAlloyMetaModelRepository(resourceCenter));
-		}
+	// 	// Register the resource in the AlloyMetaModelRepository of supplied resource center
+	// 	if (resourceCenter != null) {
+	// 		registerResourceInResourceRepository(resource,
+	// 				technologyContextManager.getTechnologyAdapter().getAlloyMetaModelRepository(resourceCenter));
+	// 	}
 
-		return resource;
-	}
+	// 	return resource;
+	// }
 
-	public <I> JarBasedMetaModelResource retrieveResourceFromClassPath(String metaModelName, String metaModelURI, String metaModelExtension,
-			String pkgClassName, String factoryClassName, TechnologyContextManager<AlloyTechnologyAdapter> technologyContextManager) {
+	// public <I> JarBasedMetaModelResource retrieveResourceFromClassPath(String metaModelName, String metaModelURI, String metaModelExtension,
+	// 		String pkgClassName, String factoryClassName, TechnologyContextManager<AlloyTechnologyAdapter> technologyContextManager) {
 
-		// FlexoResourceCenter<I> resourceCenter = null;
+	// 	// FlexoResourceCenter<I> resourceCenter = null;
 
-		JarBasedMetaModelResource returned = newInstance(JarBasedMetaModelResource.class);
-		returned.setMetaModelType(AlloyMetaModelType.Standard);
+	// 	JarBasedMetaModelResource returned = newInstance(JarBasedMetaModelResource.class);
+	// 	returned.setMetaModelType(AlloyMetaModelType.Standard);
 
-		// returned.setResourceCenter(resourceCenter);
-		returned.setURI(metaModelURI);
-		returned.setServiceManager(technologyContextManager.getServiceManager());
-		returned.setTechnologyAdapter(technologyContextManager.getTechnologyAdapter());
-		returned.initName(metaModelName);
+	// 	// returned.setResourceCenter(resourceCenter);
+	// 	returned.setURI(metaModelURI);
+	// 	returned.setServiceManager(technologyContextManager.getServiceManager());
+	// 	returned.setTechnologyAdapter(technologyContextManager.getTechnologyAdapter());
+	// 	returned.initName(metaModelName);
 
-		returned.setModelFileExtension(metaModelExtension);
-		returned.setPackageClassName(pkgClassName);
-		returned.setResourceFactoryClassName(factoryClassName);
+	// 	returned.setModelFileExtension(metaModelExtension);
+	// 	returned.setPackageClassName(pkgClassName);
+	// 	returned.setResourceFactoryClassName(factoryClassName);
 
-		ClassLoaderIODelegate ioDelegate = newInstance(ClassLoaderIODelegate.class);
-		ioDelegate.setSerializationArtefact(getClass().getClassLoader());
+	// 	ClassLoaderIODelegate ioDelegate = newInstance(ClassLoaderIODelegate.class);
+	// 	ioDelegate.setSerializationArtefact(getClass().getClassLoader());
 
-		returned.setIODelegate(ioDelegate);
+	// 	returned.setIODelegate(ioDelegate);
 
-		registerResource(returned, null);
-		return returned;
-	}
+	// 	registerResource(returned, null);
+	// 	return returned;
+	// }
 
-	@Override
-	protected <I> AlloyMetaModelResource initResourceForRetrieving(I serializationArtefact, FlexoResourceCenter<I> resourceCenter)
-			throws ModelDefinitionException, IOException {
+	// @Override
+	// protected <I> AlloyMetaModelResource initResourceForRetrieving(I serializationArtefact, FlexoResourceCenter<I> resourceCenter)
+	// 		throws ModelDefinitionException, IOException {
 
-		if (isValidJarBasedArtefact(serializationArtefact, resourceCenter)) {
+	// 	if (isValidJarBasedArtefact(serializationArtefact, resourceCenter)) {
 
-			JarBasedMetaModelResource returned = null;
+	// 		JarBasedMetaModelResource returned = null;
 
-			Properties properties = resourceCenter.getProperties(serializationArtefact);
+	// 		Properties properties = resourceCenter.getProperties(serializationArtefact);
 
-			String uri = properties.getProperty(URI_KEY);
-			String extension = properties.getProperty(EXTENSION_KEY);
-			String ePackageClassName = properties.getProperty(PACKAGE_KEY);
-			String resourceFactoryClassName = properties.getProperty(RESOURCE_FACTORY_KEY);
+	// 		String uri = properties.getProperty(URI_KEY);
+	// 		String extension = properties.getProperty(EXTENSION_KEY);
+	// 		String ePackageClassName = properties.getProperty(PACKAGE_KEY);
+	// 		String resourceFactoryClassName = properties.getProperty(RESOURCE_FACTORY_KEY);
 
-			String mmType = properties.getProperty(PROPERTY_TYPE);
+	// 		String mmType = properties.getProperty(PROPERTY_TYPE);
 
-			if (mmType != null && mmType.equals(TYPE_XTEXT)) {
-				returned = newInstance(XtextAlloyMetaModelResource.class);
-				returned.setMetaModelType(AlloyMetaModelType.XText);
-				((XtextAlloyMetaModelResource) returned).setStandaloneSetupClassName(properties.getProperty(PROPERTY_XTEXT_STANDALONE_SETUP));
-			}
-			else if (mmType != null && mmType.equals(TYPE_PROFILE)) {
-				returned = newInstance(JarBasedMetaModelResource.class);
-				returned.setMetaModelType(AlloyMetaModelType.Profile);
-			}
-			else /*if (mmType != null && mmType.equals(TYPE_METAMODEL))*/ {
-				returned = newInstance(JarBasedMetaModelResource.class);
-				returned.setMetaModelType(AlloyMetaModelType.Standard);
-			}
+	// 		if (mmType != null && mmType.equals(TYPE_XTEXT)) {
+	// 			returned = newInstance(XtextAlloyMetaModelResource.class);
+	// 			returned.setMetaModelType(AlloyMetaModelType.XText);
+	// 			((XtextAlloyMetaModelResource) returned).setStandaloneSetupClassName(properties.getProperty(PROPERTY_XTEXT_STANDALONE_SETUP));
+	// 		}
+	// 		else if (mmType != null && mmType.equals(TYPE_PROFILE)) {
+	// 			returned = newInstance(JarBasedMetaModelResource.class);
+	// 			returned.setMetaModelType(AlloyMetaModelType.Profile);
+	// 		}
+	// 		else /*if (mmType != null && mmType.equals(TYPE_METAMODEL))*/ {
+	// 			returned = newInstance(JarBasedMetaModelResource.class);
+	// 			returned.setMetaModelType(AlloyMetaModelType.Standard);
+	// 		}
 
-			returned.setResourceCenter(resourceCenter);
-			returned.initName(resourceCenter.retrieveName(serializationArtefact));
-			returned.setURI(uri);
+	// 		returned.setResourceCenter(resourceCenter);
+	// 		returned.initName(resourceCenter.retrieveName(serializationArtefact));
+	// 		returned.setURI(uri);
 
-			returned.setModelFileExtension(extension);
-			returned.setPackageClassName(ePackageClassName);
-			returned.setResourceFactoryClassName(resourceFactoryClassName);
+	// 		returned.setModelFileExtension(extension);
+	// 		returned.setPackageClassName(ePackageClassName);
+	// 		returned.setResourceFactoryClassName(resourceFactoryClassName);
 
-			returned.setIODelegate(makeFlexoIODelegate(serializationArtefact, resourceCenter));
+	// 		returned.setIODelegate(makeFlexoIODelegate(serializationArtefact, resourceCenter));
 
-			return returned;
-		}
+	// 		return returned;
+	// 	}
 
-		else if (isValidECoreArtefact(serializationArtefact, resourceCenter)) {
+	// 	else if (isValidECoreArtefact(serializationArtefact, resourceCenter)) {
 
-			ECoreMetaModelResource returned = newInstance(ECoreMetaModelResource.class);
-			returned.setResourceCenter(resourceCenter);
-			returned.setIODelegate(makeFlexoIODelegate(serializationArtefact, resourceCenter));
+	// 		ECoreMetaModelResource returned = newInstance(ECoreMetaModelResource.class);
+	// 		returned.setResourceCenter(resourceCenter);
+	// 		returned.setIODelegate(makeFlexoIODelegate(serializationArtefact, resourceCenter));
 
-			ECoreMetaData metaData = returned.getMetaData(resourceCenter);
-			returned.initName(metaData.name);
-			returned.setURI(metaData.uri);
+	// 		ECoreMetaData metaData = returned.getMetaData(resourceCenter);
+	// 		returned.initName(metaData.name);
+	// 		returned.setURI(metaData.uri);
 
-			return returned;
+	// 		return returned;
 
-		}
+	// 	}
 
-		else {
-			logger.warning("Unexpected artefact: " + serializationArtefact);
-			return null;
-		}
-	}
+	// 	else {
+	// 		logger.warning("Unexpected artefact: " + serializationArtefact);
+	// 		return null;
+	// 	}
+	// }
 
-	@Override
-	protected <I> FlexoIODelegate<I> makeFlexoIODelegate(I serializationArtefact, FlexoResourceCenter<I> resourceCenter) {
+	// @Override
+	// protected <I> FlexoIODelegate<I> makeFlexoIODelegate(I serializationArtefact, FlexoResourceCenter<I> resourceCenter) {
 
-		/*if (serializationArtefact instanceof File) {
-			return (FlexoIODelegate<I>) MMFromJarsInDirIODelegateImpl.makeMMFromJarsInDirIODelegate((File) serializationArtefact, this);
-		}
-		return super.makeFlexoIODelegate(serializationArtefact, resourceCenter);*/
+	// 	/*if (serializationArtefact instanceof File) {
+	// 		return (FlexoIODelegate<I>) MMFromJarsInDirIODelegateImpl.makeMMFromJarsInDirIODelegate((File) serializationArtefact, this);
+	// 	}
+	// 	return super.makeFlexoIODelegate(serializationArtefact, resourceCenter);*/
 
-		if (isValidJarBasedArtefact(serializationArtefact, resourceCenter)) {
-			return resourceCenter.makeDirectoryBasedFlexoIODelegate(serializationArtefact, "", JarBasedMetaModelResource.PROPERTIES_SUFFIX,
-					this);
-		}
-		else if (isValidECoreArtefact(serializationArtefact, resourceCenter)) {
-			return super.makeFlexoIODelegate(serializationArtefact, resourceCenter);
-		}
-		else {
-			logger.warning("Unexpected artefact: " + serializationArtefact);
-			return null;
-		}
-	}
+	// 	if (isValidJarBasedArtefact(serializationArtefact, resourceCenter)) {
+	// 		return resourceCenter.makeDirectoryBasedFlexoIODelegate(serializationArtefact, "", JarBasedMetaModelResource.PROPERTIES_SUFFIX,
+	// 				this);
+	// 	}
+	// 	else if (isValidECoreArtefact(serializationArtefact, resourceCenter)) {
+	// 		return super.makeFlexoIODelegate(serializationArtefact, resourceCenter);
+	// 	}
+	// 	else {
+	// 		logger.warning("Unexpected artefact: " + serializationArtefact);
+	// 		return null;
+	// 	}
+	// }
 
 }

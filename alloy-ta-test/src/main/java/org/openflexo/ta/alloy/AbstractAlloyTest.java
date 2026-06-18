@@ -49,12 +49,12 @@ import org.openflexo.foundation.resource.FlexoResourceCenter;
 import org.openflexo.foundation.resource.ResourceLoadingCancelledException;
 import org.openflexo.foundation.test.OpenflexoProjectAtRunTimeTestCase;
 import org.openflexo.ta.alloy.model.AlloyText;
-import org.openflexo.ta.alloy.rm.AlloyTextResource;
+
 
 public abstract class AbstractAlloyTest extends OpenflexoProjectAtRunTimeTestCase {
 	protected static final Logger logger = Logger.getLogger(AbstractAlloyTest.class.getPackage().getName());
 
-	protected AlloyTextResource getAlloyResource(String documentName, FlexoResourceCenter<?> resourceCenter) {
+	protected AlloyModelResource (String documentName, FlexoResourceCenter<?> resourceCenter) {
 
 		String documentURI = resourceCenter.getDefaultBaseURI() + "/" + "Alloy" + "/" + documentName;
 		System.out.println("Searching " + documentURI);
