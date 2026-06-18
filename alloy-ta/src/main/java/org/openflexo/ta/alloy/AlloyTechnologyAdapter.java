@@ -44,30 +44,25 @@ import org.openflexo.foundation.fml.annotations.DeclareModelSlots;
 import org.openflexo.foundation.fml.annotations.DeclareResourceFactories;
 import org.openflexo.foundation.resource.FlexoResourceCenter;
 import org.openflexo.foundation.technologyadapter.TechnologyAdapter;
-import org.openflexo.ta.Alloy.fml.binding.AlloyBindingFactory;
-import org.openflexo.ta.Alloy.rm.AlloyTextResourceFactory;
-import org.openflexo.ta.Alloy.rm.AlloyTextResourceRepository;
+import org.openflexo.foundation.technologyadapter.TechnologyAdapterInitializationException;
+import org.openflexo.ta.alloy.fml.binding.AlloyBindingFactory;
+import org.openflexo.ta.alloy.rm.AlloyMetaModelResourceFactory;
+import org.openflexo.ta.alloy.rm.AlloyTextResourceFactory;
+import org.openflexo.ta.alloy.rm.AlloyTextResourceRepository;
 
 /**
  * This class defines and implements the Alloy technology adapter
  */
 @DeclareModelSlots({ AlloyModelSlot.class })
-@DeclareTechnologySpecificTypes({ AlloyObjectSignatureType.class })
-@DeclareResourceFactories({ AlloyMetaModelResourceFactory.class, AlloyModelResourceFactory.class })
+//TODO is there specific type to declare ?
+// @DeclareTechnologySpecificTypes({ AlloyObjectModuleType.class })
+@DeclareResourceFactories({ AlloyMetaModelResourceFactory.class })
 public class AlloyTechnologyAdapter extends TechnologyAdapter<AlloyTechnologyAdapter> {
 
 	@SuppressWarnings("unused")
 	private static final Logger logger = Logger.getLogger(AlloyTechnologyAdapter.class.getPackage().getName());
 
 	private static final AlloyBindingFactory BINDING_FACTORY = new AlloyBindingFactory();
-
-	// TODO the following is inspired from EMF TA, is it needed ?
-	// public static String Alloy_MM_NAME = "Alloy Metamodel";
-	// public static String Alloy_MM_URI = "http://www.alloytools.org/2026/alloy"/;
-	// private static String Alloy_MM_EXT = "als";
-	// private static String Alloy_MM_PKGCLSNAME = AlloyPackageImpl.class.getName();
-	// private static String Alloy_MM_FACTORYCLSNAME = AlloyResourceFactoryImpl.class.getName();
-	// private AlloyMetaModelResource AlloyMetaModelResource = null;
 
 	/**
 	 * 
@@ -100,7 +95,7 @@ public class AlloyTechnologyAdapter extends TechnologyAdapter<AlloyTechnologyAda
 	public void activate() {
 		super.activate();
 		//TODO is this needed ?
-		registerClasspathMetaModels();
+		// registerClasspathMetaModels();
 	}
 
 	@Override
@@ -130,14 +125,14 @@ public class AlloyTechnologyAdapter extends TechnologyAdapter<AlloyTechnologyAda
 	}
 
 	//TODO do I need this ?
-	public <I> AlloyMetaModelRepository<I> getAlloyMetaModelRepository(FlexoResourceCenter<I> resourceCenter) {
-		AlloyMetaModelRepository<I> returned = resourceCenter.retrieveRepository(AlloyMetaModelRepository.class, this);
-		if (returned == null) {
-			returned = AlloyMetaModelRepository.instanciateNewRepository(this, resourceCenter);
-			resourceCenter.registerRepository(returned, AlloyMetaModelRepository.class, this);
-		}
-		return returned;
-	}
+	// public <I> AlloyMetaModelRepository<I> getAlloyMetaModelRepository(FlexoResourceCenter<I> resourceCenter) {
+	// 	AlloyMetaModelRepository<I> returned = resourceCenter.retrieveRepository(AlloyMetaModelRepository.class, this);
+	// 	if (returned == null) {
+	// 		returned = AlloyMetaModelRepository.instanciateNewRepository(this, resourceCenter);
+	// 		resourceCenter.registerRepository(returned, AlloyMetaModelRepository.class, this);
+	// 	}
+	// 	return returned;
+	// }
 
 	@Override
 	public AlloyBindingFactory getTechnologyAdapterBindingFactory() {
