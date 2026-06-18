@@ -40,6 +40,7 @@ package org.openflexo.technologyadapter.alloy.model;
 
 import static org.junit.Assert.*;
 
+import java.util.Collections;
 import java.util.logging.Logger;
 
 import org.junit.Test;
@@ -52,17 +53,18 @@ import org.openflexo.test.OrderedRunner;
 import org.openflexo.test.TestOrder;
 
 @RunWith(OrderedRunner.class)
-public class TestLoadAlloyDocuments extends AbstractAlloyTest {
-	protected static final Logger logger = Logger.getLogger(TestLoadAlloyDocuments.class.getPackage().getName());
+public class TestLoadAlloyModel extends AbstractAlloyTest {
+	protected static final Logger logger = Logger.getLogger(TestLoadAlloyModel.class.getPackage().getName());
 
 	@Test
 	@TestOrder(1)
 	public void testInitializeServiceManager() throws Exception {
 		log("testInitializeServiceManager(AlloyTechnologyAdapter)");
+//		System.out.println("2testInitializeServiceManager(AlloyTechnologyAdapter)");
 		instanciateTestServiceManager(AlloyTechnologyAdapter.class);
 
 		for (FlexoResource<?> r : serviceManager.getResourceManager().getRegisteredResources()) {
-			System.out.println(" > " + r.getURI());
+			log("FlexoResource registered > " + r.getURI());
 		}
 
 	}
@@ -75,7 +77,8 @@ public class TestLoadAlloyDocuments extends AbstractAlloyTest {
 
 		assertNotNull(technologicalAdapter);
 		for (FlexoResourceCenter<?> resourceCenter : serviceManager.getResourceCenterService().getResourceCenters()) {
-			fail();
+			assertNotNull(resourceCenter.getAllResources());
+			assertNotEquals(Collections.EMPTY_LIST, resourceCenter.getAllResources());
 		}
 	}
 

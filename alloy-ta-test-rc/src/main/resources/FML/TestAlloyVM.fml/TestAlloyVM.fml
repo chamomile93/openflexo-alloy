@@ -8,24 +8,4 @@ public class TestAlloyVM {
   @AlloyModelSlot(cardinality=ZeroOne,readOnly=false)  
   public AlloyModel ;
 
-/* TODO
-  @FlexoConcept  
-  public class Line {  
-  
-    @AlloyLineRole(cardinality=ZeroOne,readOnly=false)    
-    public AlloyLine line;  
-  
-    @CreationScheme    
-    Line:create() {    
-      
-    }    
-  
-    @DeletionScheme    
-    Void delete() {    
-      
-    }    
-  
-  }
-  */  
-
 }
