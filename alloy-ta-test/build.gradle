@@ -1,5 +1,5 @@
 dependencies {
-    implementation project(':xx-ta')
+    implementation project(':alloy-ta')
     implementation flexoFoundation()
 
     implementation testUtils()
@@ -12,5 +12,5 @@ dependencies {
     testImplementation fmlCliTest()
 
     // Test resource center
-    testRuntimeOnly project(':xx-ta-test-rc')
+    testRuntimeOnly project(':alloy-ta-test-rc')
 }

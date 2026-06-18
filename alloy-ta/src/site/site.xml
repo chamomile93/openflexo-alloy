@@ -21,11 +21,11 @@
   <body>
   
     <menu name=""
-			img="https://support.openflexo.org/images/components/ta/xx_ta/XX.png">
+			img="https://support.openflexo.org/images/components/ta/alloy_ta/alloy.png">
 	</menu>
   
   
-    <menu name="XX connector">
+    <menu name="Alloy connector">
       <item name="Home" 		href="index.html" />
       <item name="Javadoc"    	href="./apidocs/index.html" />
     </menu>

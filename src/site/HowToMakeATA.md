@@ -44,13 +44,13 @@ TA.
 A TA provides the definition of:
 
   1) the abstractions representing the various elements of the
-external data, called here after, the *TA concepts*
+external data, called here after, the *TA concepts* <!-- TODO "module" -->
 
   2) the *actions* to manipulates these TA concepts instances from
-  model federation behaviors
+  model federation behaviors <!-- TODO CRUD ? execute ? fetchSatisfiableSets? serializeAnswer?-->
 
   3) a set of *model slot types* defining the way virtual model
-  instances will be connected to the data
+  instances will be connected to the data <!-- TODO at least one type ? i have only "als" files -->
 
 # Implementation view
 
@@ -59,49 +59,49 @@ objectives and therefore is structured as a set of Java packages. It
 is generally defined using annotations from FML and Pamela
 (annotations for serialization / deserialization).
 
-Let us suppose the TA is for the technology space xx.
+Let us suppose the TA is for the technology space alloy.
 
 ## Overview
 
 You should structure it around the following packages:
 
-1) `xx` containing
+1) `alloy` containing
 
-    1) The declaring class `XXTechnologyAdapter` defining the TA. It declares the available model slots, custom types and factories.
+    1) The declaring class `AlloyTechnologyAdapter` defining the TA. It declares the available model slots, custom types and factories.
 
-    2) The various model slots, the `YyXXModelSlot` interfaces declaring the accessible TA concepts and the actions to manipulate them.
+    2) The various model slots, the `YyAlloyModelSlot` interfaces declaring the accessible TA concepts and the actions to manipulate them.
 
-2) `xx.model` containing the abstractions of the underlying
+2) `alloy.model` containing the abstractions of the underlying
 technology, called *technology objects*, and the factory to
-instanciate them.
+instanciate them. <!-- TODO "module" -->
 
-3) `xx.rm` containing the classes that implements the resource
+1) `alloy.rm` containing the classes that implements the resource
 management: resource definition, serialization / deserialization,
-identification...
+identification. <!-- TODO idf -->
 
-4) `xx.fml` containing the definition of the TA concepts and their actions relying on `xx.model` and `xx.rm`.
+1) `alloy.fml` containing the definition of the TA concepts and their actions relying on `alloy.model` and `alloy.rm`. <!-- TODO idf -->
 
 
 ## Details
 
-### The declaring class `XXTechnologyAdapter`
+### The declaring class `AlloyTechnologyAdapter`
 
 First you must declare your TA by extending the `TechnologyAdapter`
-class with the generic parameter `XXTechnologyAdapter`.
+class with the generic parameter `AlloyTechnologyAdapter`.
 
 This class must declare the various model slots types, specific
 custom types and resource factories using FML annotations. A model
-slot type is declared using the annotation
-`@@DeclareModelSlots({YyXXModelSlot.class,ZzXXModelSlot.class})`,
-`@@DeclareTechnologySpecificTypes({...})` is for specific types while
-resource factories are declared by
-`@@DeclareResourceFactories({...})`.
+slot type is declared using the annotation  <!-- TODO idf -->
+`@DeclareModelSlots({YyAlloyModelSlot.class,ZzAlloyModelSlot.class})`,  <!-- TODO idf -->
+`@DeclareTechnologySpecificTypes({...})` is for specific types while
+resource factories are declared by  <!-- TODO idf -->
+`@DeclareResourceFactories({...})`.
 
 Being a TA requires to define:
-
+ <!-- TODO check -->
 * the name of the TA, method `String getName()`{.java}
 * an identifier for the FML language, method `String getIdentifier()`{.java}
-* the path to the localization resources (a.k.a dictionnaries) , method `String getLocalizationDirectory()`{.java}, it is often `"FlexoLocalization/XXTechnologyAdapter"`
+* the path to the localization resources (a.k.a dictionnaries) , method `String getLocalizationDirectory()`{.java}, it is often `"FlexoLocalization/AlloyTechnologyAdapter"`
 * specify which resources should be ignored when presenting all available resources, method `<I> boolean isIgnorable(FlexoResourceCenter<I> resourceCenter, I contents)`, it often returns `false`
 * specify the *binding factory* for the specific types of the TA, this factory is a singleton often defined as a private final static attribute of the TA, method `TechnologyAdapterBindingFactory getTechnologyAdapterBindingFactory()`
 
@@ -121,25 +121,25 @@ will be connected to.
 
 For this basic tutorial, we will only look at the free model slot and
 invite the reader interested in type aware ones to look at the code of
-the OWL TA.
+the OWL TA. <!-- TODO might loook the type aware OWL TA -->
 
 In the model slot, you should declare four lists:
-
-* the list of roles `@@DeclareFlexoRoles({...})` specific to your technology
+ <!-- TODO idf -->
+* the list of roles `@DeclareFlexoRoles({...})` specific to your technology
 <!---
-XXLineRole.class
+AlloyLineRole.class
 -->
-* the list of actor reference `@@DeclareActorReferences({...})`
+* the list of actor reference `@DeclareActorReferences({...})`
 <!---
-XXLineActorReference.class
+AlloyLineActorReference.class
 -->
-* the list of actions `@@DeclareEditionActions({...})`
+* the list of actions `@DeclareEditionActions({...})`
 <!---
-AddXXLine.class
+AddAlloyLine.class
 -->
-* the list of requests `@@DeclareFetchRequests({...})`
+* the list of requests `@DeclareFetchRequests({...})`
 <!---
-SelectUniqueXXLine.class, SelectXXLine.class
+SelectUniqueAlloyLine.class, SelectAlloyLine.class
 -->
 
 A model slot is defined using the pamela framework as an interface.
@@ -148,25 +148,26 @@ specific to the model slot and must contain its implementation as an
 internal class. This implementation must extends either the class
 `FreeModelSlot`, the class `TypeAwareModelSlot` or any classes that
 specialize them.
-
+ <!-- TODO idf -->
 A model slot is parameterized by the technology object it provides
 access to.
 
-public interface XXModelSlot extends FreeModelSlot<XXText> {
+public interface AlloyModelSlot extends FreeModelSlot<AlloyText> {
 
-	public static abstract class XXModelSlotImpl extends FreeModelSlotImpl<XXText> implements XXModelSlot {
+```java
+	public static abstract class AlloyModelSlotImpl extends FreeModelSlotImpl<AlloyText> implements AlloyModelSlot {
 
 		@SuppressWarnings("unused")
-		private static final Logger logger = Logger.getLogger(XXModelSlot.class.getPackage().getName());
+		private static final Logger logger = Logger.getLogger(AlloyModelSlot.class.getPackage().getName());
 
 		@Override
-		public Class<XXTechnologyAdapter> getTechnologyAdapterClass() {
-			return XXTechnologyAdapter.class;
+		public Class<AlloyTechnologyAdapter> getTechnologyAdapterClass() {
+			return AlloyTechnologyAdapter.class;
 		}
 
 		@Override
 		public <PR extends FlexoRole<?>> String defaultFlexoRoleName(Class<PR> patternRoleClass) {
-			if (XXLineRole.class.isAssignableFrom(patternRoleClass)) {
+			if (AlloyLineRole.class.isAssignableFrom(patternRoleClass)) {
 				return "line";
 			}
 			return null;
@@ -174,30 +175,26 @@ public interface XXModelSlot extends FreeModelSlot<XXText> {
 
 		@Override
 		public Type getType() {
-			return XXText.class;
+			return AlloyText.class;
 		}
 
 		@Override
-		public XXTechnologyAdapter getModelSlotTechnologyAdapter() {
-			return (XXTechnologyAdapter) super.getModelSlotTechnologyAdapter();
+		public AlloyTechnologyAdapter getModelSlotTechnologyAdapter() {
+			return (AlloyTechnologyAdapter) super.getModelSlotTechnologyAdapter();
 		}
-
-
+```
 
 ## A complete example
 
-
-
-
+ <!-- TODO idf -->
 
 ## Advanced usage
 
 Looking at the available TA helps to discover the various extensions
 you may need for more complex TA.
 
-
-Context manager `XXTechnologyContextManager` extending
-`TechnologyContextManager<XXTechnologyAdapter>` can be defined to
+Context manager `AlloyTechnologyContextManager` extending
+`TechnologyContextManager<AlloyTechnologyAdapter>` can be defined to
 manage a context related to a technology. It stores the known
-resources of this technology. For example, [(Sylvain, which example?)]{.todo}...
-
+resources of this technology.
+ <!-- TODO idf -->

@@ -1,9 +1,8 @@
  -----
- XX connector
+ Alloy connector
  -----
  The Openflexo Team
  -----
 
-  An archetype of technology adapter
-  (shows how to interpret text files as a list of lines)
+  TechnologyAdapter suitable for read and edit Alloy models
  

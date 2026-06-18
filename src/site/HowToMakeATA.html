@@ -98,7 +98,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
   <li><a href="#implementation-view">Implementation view</a><ul>
   <li><a href="#overview">Overview</a></li>
   <li><a href="#details">Details</a><ul>
-  <li><a href="#the-declaring-class-xxtechnologyadapter">The declaring class <code>XXTechnologyAdapter</code></a></li>
+  <li><a href="#the-declaring-class-alloytechnologyadapter">The declaring class <code>AlloyTechnologyAdapter</code></a></li>
   <li><a href="#model-slots">Model slots</a></li>
   </ul></li>
   <li><a href="#a-complete-example">A complete example</a></li>
@@ -128,28 +128,28 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ol>
 <h1 id="implementation-view">Implementation view</h1>
 <p>A TA is composed of a set of Java classes. It serves several objectives and therefore is structured as a set of Java packages. It is generally defined using annotations from FML and Pamela (annotations for serialization / deserialization).</p>
-<p>Let us suppose the TA is for the technology space xx.</p>
+<p>Let us suppose the TA is for the technology space alloy.</p>
 <h2 id="overview">Overview</h2>
 <p>You should structure it around the following packages:</p>
 <ol type="1">
-<li><p><code>xx</code> containing</p>
+<li><p><code>alloy</code> containing</p>
 <ol type="1">
-<li><p>The declaring class <code>XXTechnologyAdapter</code> defining the TA. It declares the available model slots, custom types and factories.</p></li>
-<li><p>The various model slots, the <code>YyXXModelSlot</code> interfaces declaring the accessible TA concepts and the actions to manipulate them.</p></li>
+<li><p>The declaring class <code>AlloyTechnologyAdapter</code> defining the TA. It declares the available model slots, custom types and factories.</p></li>
+<li><p>The various model slots, the <code>YyAlloyModelSlot</code> interfaces declaring the accessible TA concepts and the actions to manipulate them.</p></li>
 </ol></li>
-<li><p><code>xx.model</code> containing the abstractions of the underlying technology, called <em>technology objects</em>, and the factory to instanciate them.</p></li>
-<li><p><code>xx.rm</code> containing the classes that implements the resource management: resource definition, serialization / deserialization, identification…</p></li>
-<li><p><code>xx.fml</code> containing the definition of the TA concepts and their actions relying on <code>xx.model</code> and <code>xx.rm</code>.</p></li>
+<li><p><code>alloy.model</code> containing the abstractions of the underlying technology, called <em>technology objects</em>, and the factory to instanciate them.</p></li>
+<li><p><code>alloy.rm</code> containing the classes that implements the resource management: resource definition, serialization / deserialization, identification…</p></li>
+<li><p><code>alloy.fml</code> containing the definition of the TA concepts and their actions relying on <code>alloy.model</code> and <code>alloy.rm</code>.</p></li>
 </ol>
 <h2 id="details">Details</h2>
-<h3 id="the-declaring-class-xxtechnologyadapter">The declaring class <code>XXTechnologyAdapter</code></h3>
-<p>First you must declare your TA by extending the <code>TechnologyAdapter</code> class with the generic parameter <code>XXTechnologyAdapter</code>.</p>
-<p>This class must declare the various model slots types, specific custom types and resource factories using FML annotations. A model slot type is declared using the annotation <code>@DeclareModelSlots({YyXXModelSlot.class,ZzXXModelSlot.class})</code>, <code>@DeclareTechnologySpecificTypes({...})</code> is for specific types while resource factories are declared by <code>@DeclareResourceFactories({...})</code>.</p>
+<h3 id="the-declaring-class-alloytechnologyadapter">The declaring class <code>AlloyTechnologyAdapter</code></h3>
+<p>First you must declare your TA by extending the <code>TechnologyAdapter</code> class with the generic parameter <code>AlloyTechnologyAdapter</code>.</p>
+<p>This class must declare the various model slots types, specific custom types and resource factories using FML annotations. A model slot type is declared using the annotation <code>@DeclareModelSlots({YyAlloyModelSlot.class,ZzAlloyModelSlot.class})</code>, <code>@DeclareTechnologySpecificTypes({...})</code> is for specific types while resource factories are declared by <code>@DeclareResourceFactories({...})</code>.</p>
 <p>Being a TA requires to define:</p>
 <ul>
 <li>the name of the TA, method <code class="sourceCode java"><span class="bu">String</span> <span class="fu">getName</span>()</code></li>
 <li>an identifier for the FML language, method <code class="sourceCode java"><span class="bu">String</span> <span class="fu">getIdentifier</span>()</code></li>
-<li>the path to the localization resources (a.k.a dictionnaries) , method <code class="sourceCode java"><span class="bu">String</span> <span class="fu">getLocalizationDirectory</span>()</code>, it is often <code>"FlexoLocalization/XXTechnologyAdapter"</code></li>
+<li>the path to the localization resources (a.k.a dictionnaries) , method <code class="sourceCode java"><span class="bu">String</span> <span class="fu">getLocalizationDirectory</span>()</code>, it is often <code>"FlexoLocalization/AlloyTechnologyAdapter"</code></li>
 <li>specify which resources should be ignored when presenting all available resources, method <code>&lt;I&gt; boolean isIgnorable(FlexoResourceCenter&lt;I&gt; resourceCenter, I contents)</code>, it often returns <code>false</code></li>
 <li>specify the <em>binding factory</em> for the specific types of the TA, this factory is a singleton often defined as a private final static attribute of the TA, method <code>TechnologyAdapterBindingFactory getTechnologyAdapterBindingFactory()</code></li>
 </ul>
@@ -159,34 +159,34 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <p>In the model slot, you should declare four lists:</p>
 <ul>
 <li>the list of roles <code>@DeclareFlexoRoles({...})</code> specific to your technology <!---
-XXLineRole.class
+AlloyLineRole.class
 --></li>
 <li>the list of actor reference <code>@DeclareActorReferences({...})</code> <!---
-XXLineActorReference.class
+AlloyLineActorReference.class
 --></li>
 <li>the list of actions <code>@DeclareEditionActions({...})</code> <!---
-AddXXLine.class
+AddAlloyLine.class
 --></li>
 <li>the list of requests <code>@DeclareFetchRequests({...})</code> <!---
-SelectUniqueXXLine.class, SelectXXLine.class
+SelectUniqueAlloyLine.class, SelectAlloyLine.class
 --></li>
 </ul>
 <p>A model slot is defined using the pamela framework as an interface. This interface may contain pamela attributes to store properties specific to the model slot and must contain its implementation as an internal class. This implementation must extends either the class <code>FreeModelSlot</code>, the class <code>TypeAwareModelSlot</code> or any classes that specialize them.</p>
 <p>A model slot is parameterized by the technology object it provides access to.</p>
-<p>public interface XXModelSlot extends FreeModelSlot<XXText> {</p>
-<pre><code>public static abstract class XXModelSlotImpl extends FreeModelSlotImpl&lt;XXText&gt; implements XXModelSlot {
+<p>public interface AlloyModelSlot extends FreeModelSlot<AlloyText> {</p>
+<pre><code>public static abstract class AlloyModelSlotImpl extends FreeModelSlotImpl&lt;AlloyText&gt; implements AlloyModelSlot {
 
     SuppressWarnings(&quot;unused&quot;)
-    private static final Logger logger = Logger.getLogger(XXModelSlot.class.getPackage().getName());
+    private static final Logger logger = Logger.getLogger(AlloyModelSlot.class.getPackage().getName());
 
     Override
-    public Class&lt;XXTechnologyAdapter&gt; getTechnologyAdapterClass() {
-        return XXTechnologyAdapter.class;
+    public Class&lt;AlloyTechnologyAdapter&gt; getTechnologyAdapterClass() {
+        return AlloyTechnologyAdapter.class;
     }
 
     Override
     public &lt;PR extends FlexoRole&lt;?&gt;&gt; String defaultFlexoRoleName(Class&lt;PR&gt; patternRoleClass) {
-        if (XXLineRole.class.isAssignableFrom(patternRoleClass)) {
+        if (AlloyLineRole.class.isAssignableFrom(patternRoleClass)) {
             return &quot;line&quot;;
         }
         return null;
@@ -194,16 +194,16 @@ SelectUniqueXXLine.class, SelectXXLine.class
 
     Override
     public Type getType() {
-        return XXText.class;
+        return AlloyText.class;
     }
 
     Override
-    public XXTechnologyAdapter getModelSlotTechnologyAdapter() {
-        return (XXTechnologyAdapter) super.getModelSlotTechnologyAdapter();
+    public AlloyTechnologyAdapter getModelSlotTechnologyAdapter() {
+        return (AlloyTechnologyAdapter) super.getModelSlotTechnologyAdapter();
     }</code></pre>
 <h2 id="a-complete-example">A complete example</h2>
 <h2 id="advanced-usage">Advanced usage</h2>
 <p>Looking at the available TA helps to discover the various extensions you may need for more complex TA.</p>
-<p>Context manager <code>XXTechnologyContextManager</code> extending <code>TechnologyContextManager&lt;XXTechnologyAdapter&gt;</code> can be defined to manage a context related to a technology. It stores the known resources of this technology. For example, <span class="todo">(Sylvain, which example?)</span>…</p>
+<p>Context manager <code>AlloyTechnologyContextManager</code> extending <code>TechnologyContextManager&lt;AlloyTechnologyAdapter&gt;</code> can be defined to manage a context related to a technology. It stores the known resources of this technology. For example, <span class="todo">(Sylvain, which example?)</span>…</p>
 </body>
 </html>

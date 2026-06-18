@@ -5,6 +5,7 @@ dependencies {
   // external dep
   // Define here your dependancies
   //implementation 'my.library:artefact-name:1.0.0'
+  // TODO maybe add alloy dependency here
 
   // testing dep
   testImplementation testUtils()
@@ -12,10 +13,10 @@ dependencies {
 
   // A particular resource center can be defined here
   // If it always required to be present at run-time
-  //runtimeOnly project(':xx-ta-rc')
+  //runtimeOnly project(':alloy-ta-rc')
 
   // Test resource center, if required
-  // testRuntimeOnly project(':xx-ta-test-rc')
+  // testRuntimeOnly project(':alloy-ta-test-rc')
 
 }
 
