@@ -47,16 +47,9 @@ import org.openflexo.foundation.fml.FlexoRole;
 import org.openflexo.foundation.fml.editionaction.EditionAction;
 import org.openflexo.foundation.technologyadapter.TechnologyObject;
 import org.openflexo.gina.utils.InspectorGroup;
-import org.openflexo.icon.IconFactory;
-import org.openflexo.icon.IconLibrary;
 import org.openflexo.ta.alloy.AlloyTechnologyAdapter;
-import org.openflexo.ta.alloy.fml.AlloyLineRole;
-import org.openflexo.ta.alloy.fml.editionaction.AbstractSelectAlloyLine;
-import org.openflexo.ta.alloy.fml.editionaction.AddAlloyLine;
 import org.openflexo.ta.alloy.gui.AlloyIconLibrary;
-import org.openflexo.ta.alloy.model.AlloyLine;
-import org.openflexo.ta.alloy.model.AlloyObject;
-import org.openflexo.ta.alloy.model.AlloyText;
+import org.openflexo.ta.alloy.model.AlloyModel;
 import org.openflexo.ta.alloy.view.AlloyTextView;
 import org.openflexo.view.EmptyPanel;
 import org.openflexo.view.ModuleView;
@@ -152,9 +145,9 @@ public class AlloyAdapterController extends TechnologyAdapterController<AlloyTec
 	 */
 	@Override
 	public ImageIcon getIconForTechnologyObject(Class<? extends TechnologyObject<?>> objectClass) {
-		if (AlloyObject.class.isAssignableFrom(objectClass)) {
-			return AlloyIconLibrary.iconForObject((Class<? extends AlloyObject>) objectClass);
-		}
+		// if (AlloyObject.class.isAssignableFrom(objectClass)) {
+		// 	return AlloyIconLibrary.iconForObject((Class<? extends AlloyObject>) objectClass);
+		// }
 		return null;
 	}
 
@@ -166,9 +159,9 @@ public class AlloyAdapterController extends TechnologyAdapterController<AlloyTec
 	 */
 	@Override
 	public ImageIcon getIconForFlexoRole(Class<? extends FlexoRole<?>> patternRoleClass) {
-		if (AlloyLineRole.class.isAssignableFrom(patternRoleClass)) {
-			return getIconForTechnologyObject(AlloyLine.class);
-		}
+		// if (AlloyLineRole.class.isAssignableFrom(patternRoleClass)) {
+		// 	return getIconForTechnologyObject(AlloyLine.class);
+		// }
 		return null;
 	}
 
@@ -180,23 +173,23 @@ public class AlloyAdapterController extends TechnologyAdapterController<AlloyTec
 	 */
 	@Override
 	public ImageIcon getIconForEditionAction(Class<? extends EditionAction> editionActionClass) {
-		if (AddAlloyLine.class.isAssignableFrom(editionActionClass)) {
-			return IconFactory.getImageIcon(getIconForTechnologyObject(AlloyLine.class), IconLibrary.DUPLICATE);
-		}
-		else if (AbstractSelectAlloyLine.class.isAssignableFrom(editionActionClass)) {
-			return IconFactory.getImageIcon(getIconForTechnologyObject(AlloyLine.class), IconLibrary.IMPORT);
-		}
+		// if (AddAlloyLine.class.isAssignableFrom(editionActionClass)) {
+		// 	return IconFactory.getImageIcon(getIconForTechnologyObject(AlloyLine.class), IconLibrary.DUPLICATE);
+		// }
+		// else if (AbstractSelectAlloyLine.class.isAssignableFrom(editionActionClass)) {
+		// 	return IconFactory.getImageIcon(getIconForTechnologyObject(AlloyLine.class), IconLibrary.IMPORT);
+		// }
 		return super.getIconForEditionAction(editionActionClass);
 	}
 
 	@Override
 	public boolean isRepresentableInModuleView(TechnologyObject<AlloyTechnologyAdapter> object) {
-		return object instanceof AlloyText;
+		return object instanceof AlloyModel;
 	}
 	
 	@Override
 	public FlexoObject getRepresentableMasterObject(TechnologyObject<AlloyTechnologyAdapter> object) {
-		if (object instanceof AlloyText) {
+		if (object instanceof AlloyModel) {
 			return object;
 		}
 		return null;
@@ -213,8 +206,8 @@ public class AlloyAdapterController extends TechnologyAdapterController<AlloyTec
 	@Override
 	public ModuleView<?> createModuleViewForMasterObject(TechnologyObject<AlloyTechnologyAdapter> object, FlexoController controller,
 			FlexoPerspective perspective) {
-		if (object instanceof AlloyText) {
-			AlloyTextView returned = new AlloyTextView((AlloyText) object, controller, perspective);
+		if (object instanceof AlloyModel) {
+			AlloyTextView returned = new AlloyTextView((AlloyModel) object, controller, perspective);
 			return returned;
 		}
 		return new EmptyPanel<>(controller, perspective, object);

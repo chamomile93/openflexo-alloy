@@ -1,4 +1,5 @@
 package org.openflexo.technologyadapter.alloy.model;
+
 /**
  * 
  * Copyright (c) 2018, Openflexo
@@ -43,6 +44,7 @@ import java.util.logging.Logger;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.openflexo.foundation.resource.FlexoResource;
 import org.openflexo.foundation.resource.FlexoResourceCenter;
 import org.openflexo.ta.alloy.AbstractAlloyTest;
 import org.openflexo.ta.alloy.AlloyTechnologyAdapter;
@@ -56,7 +58,13 @@ public class TestLoadAlloyDocuments extends AbstractAlloyTest {
 	@Test
 	@TestOrder(1)
 	public void testInitializeServiceManager() throws Exception {
+		log("testInitializeServiceManager(AlloyTechnologyAdapter)");
 		instanciateTestServiceManager(AlloyTechnologyAdapter.class);
+
+		for (FlexoResource<?> r : serviceManager.getResourceManager().getRegisteredResources()) {
+			System.out.println(" > " + r.getURI());
+		}
+
 	}
 
 	@Test

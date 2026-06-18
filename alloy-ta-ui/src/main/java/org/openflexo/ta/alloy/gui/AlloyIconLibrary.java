@@ -40,13 +40,8 @@ package org.openflexo.ta.alloy.gui;
 
 import java.util.logging.Logger;
 
-import javax.swing.ImageIcon;
-
 import org.openflexo.icon.ImageIconResource;
 import org.openflexo.rm.ResourceLocator;
-import org.openflexo.ta.alloy.model.AlloyLine;
-import org.openflexo.ta.alloy.model.AlloyObject;
-import org.openflexo.ta.alloy.model.AlloyText;
 
 public class AlloyIconLibrary {
 
@@ -58,14 +53,14 @@ public class AlloyIconLibrary {
 	public static final ImageIconResource Alloy_TEXT_ICON = new ImageIconResource(ResourceLocator.locateResource("Icons/AlloyText.png"));
 	public static final ImageIconResource Alloy_LINE_ICON = new ImageIconResource(ResourceLocator.locateResource("Icons/AlloyLine.png"));
 
-	public static ImageIcon iconForObject(Class<? extends AlloyObject> objectClass) {
-		if (AlloyText.class.isAssignableFrom(objectClass)) {
-			return Alloy_TEXT_ICON;
-		}
-		else if (AlloyLine.class.isAssignableFrom(objectClass)) {
-			return Alloy_LINE_ICON;
-		}
-		logger.warning("No icon for " + objectClass);
-		return null;
-	}
+	// public static ImageIcon iconForObject(Class<? extends AlloyObject> objectClass) {
+	// 	if (AlloyText.class.isAssignableFrom(objectClass)) {
+	// 		return Alloy_TEXT_ICON;
+	// 	}
+	// 	else if (AlloyLine.class.isAssignableFrom(objectClass)) {
+	// 		return Alloy_LINE_ICON;
+	// 	}
+	// 	logger.warning("No icon for " + objectClass);
+	// 	return null;
+	// }
 }

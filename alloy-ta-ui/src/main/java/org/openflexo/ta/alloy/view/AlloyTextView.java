@@ -49,7 +49,7 @@ import javax.swing.JTextArea;
 import org.openflexo.foundation.FlexoObject;
 import org.openflexo.selection.SelectionListener;
 import org.openflexo.selection.SelectionManager;
-import org.openflexo.ta.alloy.model.AlloyText;
+import org.openflexo.ta.alloy.model.AlloyModel;
 import org.openflexo.view.SelectionSynchronizedModuleView;
 import org.openflexo.view.controller.FlexoController;
 import org.openflexo.view.controller.model.FlexoPerspective;
@@ -61,21 +61,21 @@ import org.openflexo.view.controller.model.FlexoPerspective;
  * 
  */
 @SuppressWarnings("serial")
-public class AlloyTextView extends JPanel implements SelectionSynchronizedModuleView<AlloyText> {
+public class AlloyTextView extends JPanel implements SelectionSynchronizedModuleView<AlloyModel> {
 
-	private final AlloyText text;
+	private final AlloyModel text;
 	private final FlexoPerspective declaredPerspective;
 
 	private final FlexoController controller;
 	private JTextArea textArea;
 
-	public AlloyTextView(AlloyText text, FlexoController controller, FlexoPerspective perspective) {
+	public AlloyTextView(AlloyModel text, FlexoController controller, FlexoPerspective perspective) {
 		super(new BorderLayout());
 		this.controller = controller;
 		declaredPerspective = perspective;
 		this.text = text;
 		textArea = new JTextArea();
-		textArea.setText(text.getContents());
+		textArea.setText(text.toString()); //TODO text.getContents()
 		add(new JScrollPane(textArea), BorderLayout.CENTER);
 	}
 
@@ -115,7 +115,7 @@ public class AlloyTextView extends JPanel implements SelectionSynchronizedModule
 	}
 
 	@Override
-	public AlloyText getRepresentedObject() {
+	public AlloyModel getRepresentedObject() {
 		return text;
 	}
 
